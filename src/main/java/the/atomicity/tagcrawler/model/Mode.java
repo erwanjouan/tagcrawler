@@ -10,7 +10,7 @@ public enum Mode {
         this.command = command;
     }
 
-    public static Mode parse(final String mode) {
+    public static Mode fromString(final String mode) {
         for (final Mode modeValue : Mode.values()) {
             if (modeValue.getCommand().equals(mode)) {
                 return modeValue;

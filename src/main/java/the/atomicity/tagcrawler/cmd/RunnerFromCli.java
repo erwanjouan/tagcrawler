@@ -5,7 +5,7 @@ import the.atomicity.tagcrawler.model.Mode;
 import the.atomicity.tagcrawler.service.LauncherService;
 import java.io.IOException;
 
-public class Runner {
+public class RunnerFromCli {
 
     LauncherService launcherService;
 
@@ -57,7 +57,7 @@ public class Runner {
             }
             Mode mode = Mode.JSON;
             if (commandLine.hasOption("mode")) {
-                mode = Mode.parse(commandLine.getOptionValue("mode"));
+                mode = Mode.fromString(commandLine.getOptionValue("mode"));
             }
             boolean truncate = false;
             if (commandLine.hasOption("truncate")) {

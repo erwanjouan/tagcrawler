@@ -1,10 +1,11 @@
 package the.atomicity.tagcrawler.repository.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import the.atomicity.tagcrawler.model.GenericMedia;
 import the.atomicity.tagcrawler.repository.AbstractRepository;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,37 +15,39 @@ public class JsonRepository extends AbstractRepository {
     List<GenericMedia> medias = new ArrayList<>();
 
     @Override
-    public void init(String source, boolean clear) {
+    public void init(final String source, final boolean clear) {
     }
 
     @Override
-    public BigInteger check(GenericMedia media) {
+    public BigInteger check(final GenericMedia media) {
         return null;
     }
 
     @Override
-    public BigInteger save(GenericMedia media) {
+    public BigInteger save(final GenericMedia media) {
         this.medias.add(media);
         return media.customHashCode();
     }
 
     @Override
-    public void delete(String source, String absolutePath) {
+    public void delete(final String source, final String absolutePath) {
 
     }
 
     @Override
-    public List<String[]> findDuplicate(String source) {
+    public List<String[]> findDuplicate(final String source) {
         return null;
     }
 
     @Override
     public void postSave() {
-        ObjectMapper objectMapper = getObjectMapper();
+        final ObjectMapper objectMapper = this.getObjectMapper();
         try {
-            String json = objectMapper.writeValueAsString(medias);
-            System.out.println(json);
-        } catch (JsonProcessingException e) {
+            final String json = objectMapper.writeValueAsString(this.medias);
+            final File file = new File("media.json");
+            objectMapper.writeValue(file, this.medias);
+            //System.out.println(json);
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
